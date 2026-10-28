@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "razorpay-sheets-integration",
+  "private_key_id": "1f0c2e23a9d2e607f53f7eab79089d5f7b052ec2",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC46cTnsmgKWXHM\nWO8cRVQuTcLA4pP0emjNsx+neSwK4UYYkn6TPpH6HohIgSMqwFYubztGAaMPxIdc\nG+Uqu+Nbud5Q0GZAFfGBwXXAKfW9fw9KNxfcDzajIPXlUOnYlKDR11eDjgOnTFZ0\nPWoop12Cibr6KbZs/PhwmoW5gfqp6pZHYUhEokL6zALUPw81wcXvy/ovKsxazcXx\nW110JWM5M+hpbJHqYwi8Q12LHq0/jsHkXd0/Ks5QMmUYvFdsorX8A8Pd/S/NZsrk\n4HXiV6lu7edILyFTv34I1IizHkvdsyVvsvok0+jwiDNIsG11rVi85QsHqwSN7P1T\nAzam2BZ/AgMBAAECggEAE4tp64943bcshwvTYiqVxjsj3Z1VRB74Gt3W962gERpU\nfV5mkIuphEVb5EX6AJfJxCivnCuqH42HPR4Zr9WiJ1zS+bm9RQLMvwlCt+f3eGsI\no7CFDhZxkPZ35yARR3oWMXfQYTBOhI1WCf0/zkI6aQTDxZNJG+X1IHnErqHla7YY\nt4tNXgTpmZtCwlv/Qx9q5Lh432YoHyG0wzi2AG2bnSkHdWjgS6iNdofg/3/1ctOw\njA9emtrwbC+lA78f1FeZ0ypvKXHpMO2e41xylzj53Kt2c6ipY41u/Sbvu/SZcbZZ\nPongn2JUcRKTT6FVCKcRqrcakoKXHnaPj9K4vEBtqQKBgQDtR1Acw+NfN30uGOhi\nYuvqQsJbQUAmwQLg7t7WMQTzX82DekrKj4ghgpnh746K9kig53YaMekg63IEJ2ij\nalR6Ag+ptH86QhaXxw8Ff+PDc35C93lIkffOZz+gzCv/bLrjzNsdJQs/iu8tZ5Fe\nGePxGcvISHL7mJCUktF8nhXt6wKBgQDHgMAEGFUPNHmTl0cX4hLMoR+8bPkdXgC1\nJz2xiSMrj8IZKAh5ZKd95SqEPdeSym7XaoW6UliBoc07dDkSrNhyWTf607/d3F3X\n8dO7a00qG1Fepat/PVVSVJp0HtAZSBDx9ho7Vx1WFM85dqlwVXacFjpKHZnDOAr+\nCsyz+WpQvQKBgQCtH3ATXNWj3m+mV6QOTRDGXqlCPcyZug/ooEDUVPXAwPDI8kxp\nmOoBUTIHyGrfdyyswdTI7guj6kXJRBuzx9wVHTXiY4DEt/2WBjYulA5RyA2ivL+w\nNFhzL6AcKXwcpG+D0C87B5E6bptuLHfDCe7nNiQaYMoMSleLH8hbPVjQuwKBgF3G\nOftyyICWJNNoFyW1wSpoTfeOrWXNar27zTbnBB4Uu6KBe8I7urLlhh+UxgCcoI8m\n5ebXj/yW5lYc4jrR/gd5wmNnJteNHptDc0e0PxgcsRmw+7SaSsGhPNx6I0zO4BAr\notbjsslkjKcxDKHduhvSIuH1mfH2JMyWnPO3t+5tAoGASywcGFCwxHoZJm15fR/C\nC3DRVBS5TpVDLMh3vOt3uPXKNtVrPTPXZoFry71bulfQv7Ghqd3G3oObQidaH+NH\nARG+sCojNPupL5Q29x2DfpaGavlvYwS0yi1kqJMx/iBADPtZnHNkCwdNB0CPoQIN\nhkuHf8WtPCBA6wgy+iScbus=\n-----END PRIVATE KEY-----\n",
+  "client_email": "razorpay-sheets@razorpay-sheets-integration.iam.gserviceaccount.com",
+  "client_id": "100692343546405078893",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/razorpay-sheets%40razorpay-sheets-integration.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
