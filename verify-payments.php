@@ -3,6 +3,7 @@
 
 header('contentType: Application/json');
 require_once __DIR__.'/config/razorpay.php';
+require_once __DIR__.'/append-sheets.php';
 
 if($_SERVER['REQUEST_METHOD']!== 'POST'){
     http_response_code(405);
@@ -36,6 +37,28 @@ if(hash_equals($exp_sign,$signature)){
         "payment_id"=> $payment_id,
         "order_id"=> $order_id
     ]);
+
+    //  after Payment verification appending transactions to google sheets
+
+    try {
+
+        appendPaymentDetails([
+            'customer_name' => "aman",
+            'customer_email' => "aman@gmail.com",
+            'customer_phone' => 98034794780,
+            'payment_type' => "installment",
+            'amount' => 6000,
+            'order_id' => "sakj32kjhlw23",
+            'payment_id' => "kl32jlk;j32kl4lk32j"
+        ]);
+
+
+    } catch (Throwable $e) {
+        error_log($e->getMessage());
+        echo ' Connection Failed: ' . $e->getMessage();
+    }
+
+
     exit;
 }
 

@@ -36,7 +36,8 @@ $orderData = [
     'notes' => [
         'customer_name' => $customerName,
         'payment_type' => $paymentType,
-        
+        'customer_email' => $customerEmail,
+        'customer_phone' => $customerPhone
     ]
 ];
 

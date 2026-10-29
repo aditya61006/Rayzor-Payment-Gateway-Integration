@@ -124,7 +124,7 @@ $(document).ready(function () {
 
                     $("#message")
                         .css("color", "#b91c1c")
-                        .text("Unable to create  Razorpay order.");
+                        .text("Unable to create   Razorpay order.");
 
                 }},
                 error: function(xhr) {
