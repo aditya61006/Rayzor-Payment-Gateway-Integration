@@ -6,10 +6,11 @@ $(document).ready(function () {
         var installments = $("#installments").val()
 
         var amount = totalAmount / installments
+        
 
-        $("#installmentAmount").text("₹" + amount);
+        $("#installmentAmount").val("₹" + amount);
     }
-
+  
     $("#payment_type").on("change", function () {
         if ($(this).val() === "installment") {
             $(".installment_section").slideDown();
@@ -30,17 +31,19 @@ $(document).ready(function () {
         event.preventDefault();
         var button = $('#payNow')
         var message = $('#message')
-
+        
         button.prop("disabled", true).text("Creating Order...");
         message.css("color", "#b91c1c").text("");
-
+        let serializedData = $(this).serialize();
+        let cleanData = decodeURIComponent(serializedData);
+    
         $.ajax({
             url: "../create-order1.php",
             type: "POST",
-            data: $(this).serialize(),
+            data: cleanData,
             dataType: "json",
             success: function (response) {
-                console.log(response.notes.customer_name)
+                console.log(response)
                 if (response.success && response.order_id) {
                         console.log("inside ajax, backend sent success")
                     var options = {                // prepare for checkout.js of razor pay
@@ -58,11 +61,14 @@ $(document).ready(function () {
 
                         handler: 
                              function(paymentResponse){
+                                // console.log(paymentResponse)
                                  $("#message").css("color","#333").text("Verifying Payment Signature...")
                                 //  console.log(paymentResponse.razorpay_payment_id)
                                 //  console.log(paymentResponse.razorpay_order_id)
                                 //  console.log(paymentResponse.razorpay_signature)
 
+
+                               
                                 //  signature verification call     
                                  $.ajax({
                                     type: "POST",
@@ -71,6 +77,7 @@ $(document).ready(function () {
                                     data: {
                                         key: response.key_id,
                                         amount: response.amount,
+                                        amount_paid: parseFloat($("#installmentAmount").val()) ,
                                         currency: response.currency,
                                         name: response.notes.customer_name,
                                         email: response.notes.customer_email,

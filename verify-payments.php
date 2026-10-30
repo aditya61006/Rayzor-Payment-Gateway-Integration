@@ -21,7 +21,11 @@ $phone = $_POST["phone"]?? "";
 $payment_type = $_POST["payment_type"]?? "";
 $currency = $_POST["currency"]?? "";
 $key = $_POST["key"] ?? "";
-$amount = $_POST["amount"]?? "";
+$amount = $_POST["amount"] ?? "";
+$amount_paid = isset($_POST['amount_paid']) ? (float) $_POST['amount_paid'] : '';
+
+// $amount_due = $amount - $amount_paid ?? "";
+
 $totalAmount = (float) ($amount / 100);
 
 
@@ -56,6 +60,7 @@ if(hash_equals($exp_sign,$signature)){
             'customer_phone' => $phone,
             'payment_type' => $payment_type,
             'amount' => $totalAmount,
+            'amount_paid' => $amount_paid,
             'order_id' => $order_id,
             'payment_id' => $payment_id
         ]);

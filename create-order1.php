@@ -23,8 +23,13 @@ $paymentType = $_POST['payment_type'] ?? '';
 $totalAmount = $_POST['total_amount'] ?? '';
 $customerEmail =$_POST['customer_email'] ?? '';
 $customerPhone = $_POST['customer_phone'] ?? '';
+if($paymentType === 'installment'){
+    $totalAmount = $_POST['installmentAmount'];
+
+    echo $totalAmount;
 
 
+}
 
 
 $totalPaise = round((float) $totalAmount * 100);  // converting rupees to paise
@@ -71,9 +76,9 @@ if($response === false){
     exit;
 }
 
+// echo 'created order'. $response;
 $result = json_decode($response, true);
 
-// echo 'created order'. $result;
 
 if ($statusCode < 200 || $statusCode >= 300 || empty($result['id'])) {
     http_response_code(502);

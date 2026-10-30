@@ -24,6 +24,7 @@ function appendPaymentDetails($data)
             date('Y-m-d H:i:s'),
             $data['payment_type'],
             $data['amount'],
+            $data['amount_paid'],
             $data['order_id'],
             $data['payment_id'],
             'success'

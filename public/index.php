@@ -47,7 +47,8 @@
                 </select>
                 <p>
                     Amount per installment
-                    <strong id="installmentAmount">₹0.00</strong>
+                    <input type="text" name="installmentAmount" id="installmentAmount" value="₹0.00" readonly>
+
                 </p>
             </div>
 
