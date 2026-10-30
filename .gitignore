@@ -4,3 +4,4 @@ Tod.txt
 vendor
 api.txt
 /config/google-sheets.php
+/config/google-service-account.json
