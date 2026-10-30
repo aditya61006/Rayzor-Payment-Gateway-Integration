@@ -15,6 +15,14 @@ if($_SERVER['REQUEST_METHOD']!== 'POST'){
 $payment_id = $_POST["razorpay_payment_id"] ?? "";
 $order_id = $_POST["razorpay_order_id"]?? "";
 $signature = $_POST["razorpay_signature"]?? "";
+$name = $_POST["name"]?? "";
+$email = $_POST["email"]?? "";
+$phone = $_POST["phone"]?? "";
+$payment_type = $_POST["payment_type"]?? "";
+$currency = $_POST["currency"]?? "";
+$key = $_POST["key"] ?? "";
+$amount = $_POST["amount"]?? "";
+$totalAmount = (float) ($amount / 100);
 
 
 if($payment_id ===''|| $order_id === ""|| $signature === ""){
@@ -43,13 +51,13 @@ if(hash_equals($exp_sign,$signature)){
     try {
 
         appendPaymentDetails([
-            'customer_name' => "aman",
-            'customer_email' => "aman@gmail.com",
-            'customer_phone' => 98034794780,
-            'payment_type' => "installment",
-            'amount' => 6000,
-            'order_id' => "sakj32kjhlw23",
-            'payment_id' => "kl32jlk;j32kl4lk32j"
+            'customer_name' => $name,
+            'customer_email' => $email,
+            'customer_phone' => $phone,
+            'payment_type' => $payment_type,
+            'amount' => $totalAmount,
+            'order_id' => $order_id,
+            'payment_id' => $payment_id
         ]);
 
 

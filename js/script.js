@@ -40,15 +40,14 @@ $(document).ready(function () {
             data: $(this).serialize(),
             dataType: "json",
             success: function (response) {
-                // console.log(response)
+                console.log(response.notes.customer_name)
                 if (response.success && response.order_id) {
                         console.log("inside ajax, backend sent success")
                     var options = {                // prepare for checkout.js of razor pay
                         key: response.key_id,
                         amount: response.amount,
                         currency: response.currency,
-                        name: response.name,
-                        description: response.description,
+                        name: response.notes.customer_name,
                         order_id: response.order_id,   
                         
                         prefill: {
@@ -70,6 +69,13 @@ $(document).ready(function () {
                                     url : "../verify-payments.php",
                                     dataType: "json",
                                     data: {
+                                        key: response.key_id,
+                                        amount: response.amount,
+                                        currency: response.currency,
+                                        name: response.notes.customer_name,
+                                        email: response.notes.customer_email,
+                                        phone: response.notes.customer_phone,
+                                        payment_type: response.notes.payment_type,
                                         razorpay_payment_id: paymentResponse.razorpay_payment_id,
                                         razorpay_order_id:  paymentResponse.razorpay_order_id,
                                         razorpay_signature: paymentResponse.razorpay_signature

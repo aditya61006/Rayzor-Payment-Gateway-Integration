@@ -73,6 +73,8 @@ if($response === false){
 
 $result = json_decode($response, true);
 
+// echo 'created order'. $result;
+
 if ($statusCode < 200 || $statusCode >= 300 || empty($result['id'])) {
     http_response_code(502);
     echo json_encode([
@@ -84,11 +86,14 @@ if ($statusCode < 200 || $statusCode >= 300 || empty($result['id'])) {
 
 
 echo json_encode([
+    
     'success' => true,
     'order_id' => $result['id'],
     'amount' => $result['amount'],
     'currency' => $result['currency'],
-    'key_id' => RAZORPAY_KEY_ID
+    'key_id' => RAZORPAY_KEY_ID,
+    'notes' =>$result['notes']
+
 ]);
 
 
