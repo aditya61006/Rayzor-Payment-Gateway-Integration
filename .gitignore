@@ -3,4 +3,4 @@ test.php
 Tod.txt
 vendor
 api.txt
-config/google-service-account.json
+/config/google-service-account.json
