@@ -1,0 +1,132 @@
+
+--------------------------------------------------------------------------------------------------------------
+
+1 Razorpay orders api using  curl
+-> Create a payment order before actual payment.    docs(https://razorpay.com/docs/api/orders/create)
+
+curl --location 'https://api.razorpay.com/v1/orders' \
+--user 'RAZORPAY_KEY_ID:RAZORPAY_KEY_SECRET' \
+--header 'Content-Type: application/json' \
+--header 'Accept: application/json' \
+--data-raw '{
+    "receipt": "rcpt_1234",
+    "amount": 50000,
+    "currency": "INR",
+    "notes": {
+        "customer_name": "abc",
+        "payment_type": "Lumpsum Payment",
+        "customer_email": "abc@example.com",
+        "customer_phone": "9876543210"
+    }
+}'
+
+--------------------------------------------------------------------------------------------------------------
+
+
+2. Razorpay checkout api (javascript).    docs(https://razorpay.com/docs/payments/payment-gateway/web-integration/standard/integration-steps#1-build-integration)
+
+-> add razorpay checkout.js script in your index.php and then set configuration 
+-> It pulls the official script from Razorpay so your website can open a popup payment window
+
+
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+
+
+   
+-> Configure the Razorpay payment window options
+
+
+
+var options = {
+    key: RAZORPAY_KEY_ID,             
+    amount: amount,          
+    currency: INR,   
+    name: name, 
+    order_id: order_id,      
+    
+
+    prefill: { 
+        name: $("#customer_name").val(), 
+        email: $("#customer_email").val(), 
+        contact: $("#customer_phone").val() 
+    }, 
+    
+  
+//    success function after getting response
+
+    handler: function(paymentResponse) { 
+
+         console.log(response.razorpay_payment_id);
+        console.log(response.razorpay_order_id);
+        console.log(response.razorpay_signature);
+
+    }, 
+    
+    // when a user closes it without completing an payment
+    modal: { 
+        ondismiss: function() { 
+           console.log("Payment Failed")
+        } 
+    }, 
+    
+
+}; 
+
+
+var checkout = new Razorpay(options); 
+checkout.open();
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+4. google shhets api (using php sdk)  docs(https://github.com/googleworkspace/php-samples/blob/main/sheets/snippets/src/SpreadsheetAppendValues.php)
+-> insert data into google sheet after payment success
+
+composer require "google/apiclient:^2.20"  // download cmd for sdk
+
+
+require_once 'vendor/autoload.php';
+
+$client = new Google_Client();
+
+$client->setApplicationName("my application");
+
+$client->setAuthConfig("service-account.json");
+
+$client->setScopes([
+    "https://www.googleapis.com/auth/spreadsheets"
+]);
+
+$service = new Google_Service_Sheets($client);
+
+$spreadsheetId = "YOUR_SPREADSHEET_ID";
+
+$range = "Sheet1!A:C";
+
+$values = [
+    ["abc", "abc@gmail.com", "500"]
+];
+
+$body = new Google_Service_Sheets_ValueRange([
+    "values" => $values
+]);
+
+$obj->spreadsheets_values->append(
+        $spreadsheetId,
+        $range,
+        $body,
+        [
+            'valueInputOption' => 'USER_ENTERED',
+
+        ]
+    );
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
