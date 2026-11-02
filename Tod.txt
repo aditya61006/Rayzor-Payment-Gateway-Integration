@@ -1,0 +1,154 @@
+Today, I worked on my Razorpay Payment Gateway Integration with Google Sheets API project.
+
+- Set up the project environment using XAMPP and PHP.
+- Created the payment form using HTML and CSS.
+- Used jQuery to display installment options and calculate installment amounts dynamically.
+- Configured Razorpay Test Mode API credentials.
+- Created a PHP configuration file to manage Razorpay credentials securely.
+- Developed a PHP REST API integration without using the Razorpay SDK or cURL and connected the payment form to the order creation endpoint using jQuery AJAX.
+
+
+Today, I will test the Razorpay order creation functionality using jQuery AJAX.
+
+- Integrate Razorpay Checkout to allow customers to make payments in Test Mode.
+- Impliment server-side payment signature verification using PHP.
+- Handle successful, failed, and cancelled payment scenarios.
+- Begin setting up the Google Sheets API to store verified payment records automatically.
+
+
+Developer: Aditya Choudhary
+Client Name:
+Upwork Id:
+
+Task: 
+
+• Integrate the Razorpay Payment Gateway using PHP.
+• Implement lumpsum payments as a single payment transaction.
+• Implement installment payments according to a defined installment plan.
+• Create Razorpay orders securely from the PHP backend.
+• Verify payment signatures on the server.
+
+Billing hours: Offline (Need Project)
+
+
+
+
+    <!-- key_id,key_secret
+rzp_test_TsRnA4W4iImX6O,HXl6Y2CyN8wL4OeREQQCPgXo -->
+
+
+
+
+
+
+
+
+- Created the payment form using HTML, CSS, and jQuery with lumpsum and installment options.
+- Configured Razorpay Test Mode credentials and integrated the Razorpay REST API using PHP streams, without SDK or cURL.
+- Implemented backend order creation and connected the payment form using jQuery AJAX.
+- Integrated Razorpay Checkout and successfully tested the payment flow in Test Mode.
+- Implemented initial server-side payment signature verification using PHP HMAC-SHA256.
+
+
+
+- Integrated Razorpay Test Mode with the PHP project using the REST API .
+- Connected the payment form to the PHP backend using jQuery AJAX.
+- Implemented secure Razorpay order creation through PHP.
+- Integrated Razorpay Checkout and successfully tested the payment .
+- Implemented initial server-side payment signature verification using HMAC-SHA256.
+
+
+
+
+
+- Pending: Google Sheets API setup, automatic payment record storage, and final payment status verification.
+
+
+Developer: Aditya Choudhary
+Client Name:
+Upwork Id:
+
+Task: 
+
+
+1. Enable the Google Sheets API.
+2. Connect the PHP project to Google Sheets using the REST API.
+3. Verify Razorpay payment status and amount before saving transaction records.
+4. Automatically store successful payment details in Google Sheets .
+
+
+Billing hours: Offline (Need Project)
+
+
+ - Integrated the Google Sheets API setup in project.
+ - Installed and configured the Google API Client SDK using PHP.
+ - Resolved Composer dependency and ZIP extension issues for installation successfully.
+ - configure the Google Sheets  ID and  JSON file.
+ - created a test file to verify the connection between PHP and Google Sheets.
+
+
+Testing the connection between my PHP application and Google Sheets API.\
+\
+develop a PHP helper function to insert payment records into Google Sheets.\
+integrate the Google Sheets functionality with the Razorpay payment verification process.\
+store customer details, payment type, amount, date, and transaction IDs in the spreadsheet.\
+test the complete payment and data storage workflow using Razorpay Test Mode.
+
+
+Today’s To-Do (TOD)
+
+
+
+Developer: Aditya Choudhary
+Client Name:
+Upwork Id:
+
+Task: 
+
+1. Configure Google Sheets API credentials .
+2. verify the service account authentication and spreadsheet access.
+3. Test reading spreadsheet data and appending a sample payment record.
+4. Integrate Google Sheets with your project to automatically store verified payment details.
+
+Billing hours: Offline (Need Project)
+
+
+### Today's To-Do (30 October 2026)
+
+1. Fix the Google Sheets API 400 error by ensuring payment data is passed as a nested array (`values`).
+2. Test appending a sample payment record to Google Sheets.
+3. Connect the Google Sheets upload function to `verify-payments.php` after successful Razorpay payment verification.
+4. Test the complete payment flow: form submission → Razorpay payment → signature verification → Google Sheets entry.
+5. Test successful, failed, and cancelled payments and check that only verified successful payments are stored in Google Sheets.
+
+Today's goal: Complete the automatic Google Sheets payment-record integration and test the full project.
+
+Got it bro! Today's work starts from the beginning of the Google Sheets data-binding part.
+
+### Today's To-Do (30 October 2026)
+
+
+Today's goal: Connect the frontend form handler with the PHP backend and successfully send form data to Google Sheets.
+
+
+
+
+Developer: Aditya Choudhary
+Client Name:
+Upwork Id:
+
+Task: 
+
+1. Bind the payment form data (customer name, email, phone, payment type, and amount) in the jQuery handler function.
+2. Using google-api-php-client SDK to append data on google-sheets.
+3. Connect the Google Sheets upload function to verify-payments.php after successful Razorpay payment verification.
+4. Test whether the data is successfully appended to Google Sheets.
+
+Billing hours: Offline (Need Project)
+
+
+1. Integrated the Razorpay Orders API using PHP cURL and understood its request structure.
+2. Troubleshot GitHub push protection errors caused by exposed Google Service Account credentials.
+3. Configured .gitignore to prevent sensitive credential files from being tracked.
+4. Cleaned Git commit history to remove exposed credentials.
+5. Successfully pushed the project to the GitHub repository on the `main` branch.

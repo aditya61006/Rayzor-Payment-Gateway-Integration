@@ -3,11 +3,10 @@
 require_once __DIR__ . '/config/razorpay.php';
 
 header('Content-Type: application/json');
-$input = json_decode(file_get_contents('php://input'), true);
 
-$amount = isset($input['amount']) ? (float) $input['amount'] : 0;
-$installments = isset($input['installments']) ? (int) $input['installments']: 0;
 
+$amount = isset($_POST['amount']) ? (float) $_POST['amount'] : 0;
+$installments = isset($_POST['installments']) ? (int) $_POST['installments']: 0;
 
 
 $totalAmount = (int) round($amount * 100);
@@ -35,12 +34,12 @@ $planData = [
     ]
 ];
 
-$ch = curl_init(RAZORPAY_API_URL .'/plans');
+$ch = curl_init(RAZORPAY_API_URL.'/plans');
 
 curl_setopt_array($ch, [
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_POST => true,
-    CURLOPT_USERPWD => RAZORPAY_KEY_ID . ':' . RAZORPAY_KEY_SECRET,
+    CURLOPT_USERPWD => RAZORPAY_KEY_ID.':'.RAZORPAY_KEY_SECRET,
     CURLOPT_HTTPHEADER => [
         'Content-Type: application/json'
     ],
@@ -52,9 +51,7 @@ $response = curl_exec($ch);
 $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 $curlError = curl_error($ch);
 
-curl_close($ch);
 
-// Handle cURL errors
 if ($response === false || $curlError) {
     http_response_code(500);
 
@@ -65,23 +62,24 @@ if ($response === false || $curlError) {
 
     exit;
 }
-
-// Decode Razorpay response
 $result = json_decode($response, true);
+print_r($result);
 
-// Handle API errors
+
 if ($httpCode !== 200 && $httpCode !== 201) {
     http_response_code($httpCode);
 
     echo json_encode([
         'success' => false,
-        'message' => $result['error']['description'] ?? 'Unable to create plan.'
+        'message' => $result['error']['description']
+            ?? 'Unable to create plan.',
+        'razorpay_error' => $result['error'] ?? $result,
+        'http_code' => $httpCode
     ]);
 
     exit;
 }
 
-// Return successful plan response
 echo json_encode([
     'success' => true,
     'message' => 'Subscription plan created successfully.',
@@ -90,4 +88,3 @@ echo json_encode([
     'total_installments' => $installments
 ]);
 
-?>

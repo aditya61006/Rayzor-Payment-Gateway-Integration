@@ -13,7 +13,7 @@ if( $_SERVER['REQUEST_METHOD'] !== "POST"){
     ]);
     exit;
 }
-$url = RAZORPAY_API_URL . '/orders';
+$url = RAZORPAY_API_URL .'/orders';
 $ch = curl_init($url);
 
 // echo ' hello ';
