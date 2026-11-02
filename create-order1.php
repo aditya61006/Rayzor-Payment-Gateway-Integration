@@ -23,13 +23,9 @@ $paymentType = $_POST['payment_type'] ?? '';
 $totalAmount = $_POST['total_amount'] ?? '';
 $customerEmail =$_POST['customer_email'] ?? '';
 $customerPhone = $_POST['customer_phone'] ?? '';
-if($paymentType === 'installment'){
-    $totalAmount = $_POST['installmentAmount'];
-
-    echo $totalAmount;
-
-
-}
+// if($paymentType === 'installment'){
+//     $totalAmount = $_POST['installmentAmount'];
+// }
 
 
 $totalPaise = round((float) $totalAmount * 100);  // converting rupees to paise
