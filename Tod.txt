@@ -151,3 +151,14 @@ Billing hours: Offline (Need Project)
 3. Configured .gitignore to prevent sensitive credential files from being tracked.
 4. Cleaned Git commit history to remove exposed credentials.
 5. Successfully pushed the project to the GitHub repository on the `main` branch.
+
+
+
+
+Today's Work Update:
+
+- Worked on integrating Razorpay Subscription functionality for installment payments.
+- Updated the payment form UI to display installment options dynamically based on the total payment amount.
+- Implemented jQuery logic to enable/disable installment options according to predefined amount ranges.
+- Added automatic installment amount calculation and payment summary updates.
+- Explored Razorpay billing period, billing interval, and subscription plan parameters for the upcoming API integration.

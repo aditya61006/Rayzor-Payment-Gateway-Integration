@@ -36,21 +36,55 @@
             <label for="total_amount">Total Payment Amount</label>
             <input type="number" name="total_amount" id="total_amount" min="1" step=".01" required>
 
-            <div class="installment_section" style="display: none;">
-                <label for="installments">Number of installments</label>
-                <select name="installments" id="installments">
-                    <option value="2">2 Installments </option>
-                    <option value="3">3 Installments</option>
-                    <option value="4">4 Installments</option>
-                    <option value="6">6 Installments</option>
-                    <option value="12">12 Installments</option>
-                </select>
-                <p>
-                    Amount per installment
-                    <input type="text" name="installmentAmount" id="installmentAmount" value="₹0.00" readonly>
+            <!-- Installment Section -->
+<div class="installment_section" style="display: none;">
 
-                </p>
-            </div>
+    <!-- Billing Period -->
+    <label for="period">Billing Period</label>
+    <select name="period" id="period">
+        <option value="weekly">Weekly</option>
+        <option value="monthly" selected>Monthly</option>
+        <option value="yearly">Yearly</option>
+    </select>
+
+    <!-- Billing Interval -->
+    <label for="interval">Billing Interval</label>
+    <select name="interval" id="interval">
+        <option value="1">Every 1 period</option>
+        <option value="2">Every 2 periods</option>
+        <option value="3">Every 3 periods</option>
+    </select>
+
+    <!-- Number of Installments -->
+    <label for="installments">Number of Installments</label>
+    <select name="installments" id="installments">
+        <option value="2">2 Installments</option>
+        <option value="3">3 Installments</option>
+        <option value="4">4 Installments</option>
+        <option value="6" selected>6 Installments</option>
+        <option value="12">12 Installments</option>
+    </select>
+
+    <!-- Payment Summary -->
+    <div class="payment-summary">
+        <h4>Payment Summary</h4>
+        <p>
+            Total Amount:
+            <span id="totalAmount">₹0.00</span>
+        </p>
+        <p>
+            Amount per installment:
+            <input type="text" name="installmentAmount"
+                id="installmentAmount" value="₹0.00" readonly>
+        </p>
+        <p>
+            Billing Frequency:
+            <span id="billingFrequency">Every 1 month</span>
+        </p>
+
+    </div>
+
+</div>
 
 
             <button type="submit" id="payNow">Pay Now</button>

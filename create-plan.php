@@ -4,8 +4,9 @@ require_once __DIR__ . '/config/razorpay.php';
 
 header('Content-Type: application/json');
 
+// print_r($_POST);
 
-$amount = isset($_POST['amount']) ? (float) $_POST['amount'] : 0;
+$amount = isset($_POST['total_amount']) ? (float) $_POST['total_amount'] : 0;
 $installments = isset($_POST['installments']) ? (int) $_POST['installments']: 0;
 
 

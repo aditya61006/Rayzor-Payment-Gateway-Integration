@@ -5,6 +5,7 @@ header('contentType: Application/json');
 require_once __DIR__.'/config/razorpay.php';
 require_once __DIR__.'/append-sheets.php';
 require_once __DIR__ .'/email.php';
+require_once __DIR__ . '/createEmail.php';
 
 if($_SERVER['REQUEST_METHOD']!== 'POST'){
     http_response_code(405);
@@ -75,7 +76,17 @@ if(hash_equals($exp_sign,$signature)){
 
     try {
 
-        sendEmail([
+        // sendEmail([
+        //     'customer_name' => $name,
+        //     'customer_email' => $email,
+        //     'customer_phone' => $phone,
+        //     'payment_type' => $payment_type,
+        //     'amount' => $totalAmount,
+        //     'order_id' => $order_id,
+        //     'payment_id' => $payment_id,
+        // ]);
+
+        sendEmailbyMailer([
             'customer_name' => $name,
             'customer_email' => $email,
             'customer_phone' => $phone,
