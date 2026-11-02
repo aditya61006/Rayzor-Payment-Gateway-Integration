@@ -22,11 +22,10 @@ Upwork Id:
 
 Task: 
 
-• Integrate the Razorpay Payment Gateway using PHP.
-• Implement lumpsum payments as a single payment transaction.
-• Implement installment payments according to a defined installment plan.
-• Create Razorpay orders securely from the PHP backend.
-• Verify payment signatures on the server.
+Integrate Razorpay EMI/Installment API  payment option.
+Configure EMI plans and handle installment payment processing .
+Implement secure  payment verification.
+Integrate Make.com webhook to send transaction details after successful payment.
 
 Billing hours: Offline (Need Project)
 

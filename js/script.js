@@ -153,8 +153,6 @@ $(document).ready(function () {
             });
         }
 
-
-       
         else if (paymentType === "installment") {
             button.text("Creating Subscription Plan...");
             $.ajax({

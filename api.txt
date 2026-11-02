@@ -84,7 +84,7 @@ checkout.open();
 
 
 
-4. google shhets api (using php sdk)  docs(https://github.com/googleworkspace/php-samples/blob/main/sheets/snippets/src/SpreadsheetAppendValues.php)
+3   . google shhets api (using php sdk)  docs(https://github.com/googleworkspace/php-samples/blob/main/sheets/snippets/src/SpreadsheetAppendValues.php)
 -> insert data into google sheet after payment success
 
 composer require "google/apiclient:^2.20"  // download cmd for sdk

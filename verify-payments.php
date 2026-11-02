@@ -4,6 +4,7 @@
 header('contentType: Application/json');
 require_once __DIR__.'/config/razorpay.php';
 require_once __DIR__.'/append-sheets.php';
+require_once __DIR__ .'/email.php';
 
 if($_SERVER['REQUEST_METHOD']!== 'POST'){
     http_response_code(405);
@@ -22,7 +23,7 @@ $payment_type = $_POST["payment_type"]?? "";
 $currency = $_POST["currency"]?? "";
 $key = $_POST["key"] ?? "";
 $amount = $_POST["amount"] ?? "";
-$amount_paid = isset($_POST['amount_paid']) ? (float) $_POST['amount_paid'] : '';
+// $amount_paid = isset($_POST['amount_paid']) ? (float) $_POST['amount_paid'] : '';
 
 // $amount_due = $amount - $amount_paid ?? "";
 
@@ -60,20 +61,43 @@ if(hash_equals($exp_sign,$signature)){
             'customer_phone' => $phone,
             'payment_type' => $payment_type,
             'amount' => $totalAmount,
-            'amount_paid' => $amount_paid,
             'order_id' => $order_id,
             'payment_id' => $payment_id
         ]);
 
+        
+
 
     } catch (Throwable $e) {
         error_log($e->getMessage());
-        echo ' Connection Failed: ' . $e->getMessage();
+        echo ' Connection Failed with google sheets : ' . $e->getMessage();
     }
 
+    try {
+
+        sendEmail([
+            'customer_name' => $name,
+            'customer_email' => $email,
+            'customer_phone' => $phone,
+            'payment_type' => $payment_type,
+            'amount' => $totalAmount,
+            'order_id' => $order_id,
+            'payment_id' => $payment_id,
+        ]);
+
+    } catch (Throwable $e) {
+        error_log($e->getMessage());
+        echo ' Transaction Email send unsuccessful : ' . $e->getMessage();
+    }
 
     exit;
+
 }
+
+
+
+
+
 
 echo json_encode([
     "success" => false,
