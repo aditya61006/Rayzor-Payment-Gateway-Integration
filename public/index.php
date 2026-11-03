@@ -42,8 +42,10 @@
     <!-- Billing Period -->
     <label for="period">Billing Period</label>
     <select name="period" id="period">
-        <option value="weekly">Weekly</option>
-        <option value="monthly" selected>Monthly</option>
+        <option value="daily">daily</option>
+        <option value="weekly" selected>weekly</option>
+        <option value="monthly">monthly</option>
+        <option value="quarterly">quarterly</option>
         <option value="yearly">Yearly</option>
     </select>
 
@@ -74,12 +76,15 @@
         </p>
         <p>
             Amount per installment:
-            <input type="text" name="installmentAmount"
-                id="installmentAmount" value="₹0.00" readonly>
+            <span id="installmentAmount">₹0.00</span>
         </p>
         <p>
             Billing Frequency:
             <span id="billingFrequency">Every 1 month</span>
+        </p>
+        <p>
+            Billing Interval:
+            <span id="billingInterval">0</span>
         </p>
 
     </div>

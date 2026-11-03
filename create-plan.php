@@ -6,30 +6,28 @@ header('Content-Type: application/json');
 
 // print_r($_POST);
 
+
+$customerName = $_POST['customer_name'] ?? '';
+$customerEmail = $_POST['customer_email'] ?? '';
+$customerPhone = $_POST['customer_phone'] ?? '';
 $amount = isset($_POST['total_amount']) ? (float) $_POST['total_amount'] : 0;
-$installments = isset($_POST['installments']) ? (int) $_POST['installments']: 0;
+$installments = isset($_POST['installments']) ? (int) $_POST['installments'] : 0;
+$period = isset($_POST['period']) ?  $_POST['period'] : 0;
+$interval = isset($_POST['interval']) ? (int) $_POST['interval'] : 0;
+
+
 
 
 $totalAmount = (int) round($amount * 100);
 $installmentAmount = (int) round($totalAmount / $installments);
 
-if ($installmentAmount * $installments !== $totalAmount) {
-    http_response_code(400);
-
-    echo json_encode([
-        'success' => false,
-        'message' => 'Amount must divide evenly into selected installments.'
-    ]);
-
-    exit;
-}
 
 $planData = [
-    'period' => 'monthly',
-    'interval' => 1,
+    'period' => $period,
+    'interval' => $interval,
     'item' => [
-        'name' => 'Monthly Installment Plan',
-        'description' => $installments . ' monthly installments',
+        'name' => $period.' Installment Plan',
+        'description' => $installments .'--'.$period .' installments',
         'amount' => $installmentAmount,
         'currency' => 'INR'
     ]
@@ -64,7 +62,7 @@ if ($response === false || $curlError) {
     exit;
 }
 $result = json_decode($response, true);
-print_r($result);
+// print_r($result);
 
 
 if ($httpCode !== 200 && $httpCode !== 201) {
@@ -85,7 +83,14 @@ echo json_encode([
     'success' => true,
     'message' => 'Subscription plan created successfully.',
     'plan_id' => $result['id'],
+    'customer_name' => $customerName,
+    'customer_email' => $customerEmail,
+    'customer_phone' => $customerPhone,
+    'interval'=> $result['interval'],
+    'period' => $result['period'],
     'installment_amount' => $installmentAmount,
-    'total_installments' => $installments
+    'total_installments' => $installments,
+    'created_at' => $result['item']['created_at'],
+    'updated_at' => $result['item']['updated_at']
 ]);
 

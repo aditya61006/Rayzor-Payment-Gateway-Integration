@@ -162,3 +162,12 @@ Today's Work Update:
 - Implemented jQuery logic to enable/disable installment options according to predefined amount ranges.
 - Added automatic installment amount calculation and payment summary updates.
 - Explored Razorpay billing period, billing interval, and subscription plan parameters for the upcoming API integration.
+
+
+
+
+- Integrated Razorpay Subscription API for installment-based payments.
+- Implemented subscription plan creation with dynamic billing period and interval.
+- Integrated Razorpay Checkout to initiate subscription payments.
+- Implemented server-side payment signature verification.
+- Worked on handling subscription details and resolving API response errors.

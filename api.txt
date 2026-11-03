@@ -126,7 +126,59 @@ $obj->spreadsheets_values->append(
         ]
     );
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+create plan api  for subscription  of razorpay  docs(https://razorpay.com/docs/api/payments/subscriptions/create-plan)
 
+curl -u [YOUR_KEY_ID]:[YOUR_KEY_SECRET] \
+-X POST https://api.razorpay.com/v1/plans \
+-H "Content-Type: application/json" \
+-d '{
+  "period": "weekly",
+  "interval": 1,
+  "item": {
+    "name": "Test plan - Weekly",
+    "amount": 69900,
+    "currency": "INR",
+    "description": "Description for the test plan"
+  },
+  "notes": {
+    "notes_key_1": "Tea, Earl Grey, Hot",
+    "notes_key_2": "Tea, Earl Grey… decaf."
+  }
+}'
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Create a Subscription using the Razorpay API.  docs(https://razorpay.com/docs/api/payments/subscriptions/create-subscription)
+
+
+
+
+curl -u [YOUR_KEY_ID]:[YOUR_KEY_SECRET] \
+-X POST https://api.razorpay.com/v1/subscriptions \
+-H "Content-Type: application/json" \
+-d '{
+   "plan_id":"plan_00000000000001",
+   "total_count":6,
+   "quantity":1,
+   "customer_notify": true,
+   "start_at":1773461489,
+   "expire_by":1773547889,
+   "addons":[
+      {
+         "item":{
+            "name":"Delivery charges",
+            "amount":3000,
+            "currency":"INR"
+         }
+      }
+   ],
+   "notes":{
+      "notes_key_1":"Tea, Earl Grey, Hot",
+      "notes_key_2":"Tea, Earl Grey… decaf."
+   }
+}'

@@ -33,19 +33,24 @@ $(document).ready(function () {
     function updateInstallmentAmount() {
         var totalAmount = parseFloat($("#total_amount").val()) || 0;
         var installments = parseInt($("#installments").val()) || 0;
+        var interval = $("#interval").val() || 0;
         var period = $("#period").val() || "monthly";
+        // console.log(period,"hellow word")
         var installmentAmount = 0;
         if (totalAmount > 0 && installments > 0) {
             installmentAmount = totalAmount / installments;
         }
         $("#totalAmount").text(
-            "₹" + totalAmount.toFixed(2)
+            "₹" + Math.trunc(totalAmount)
         );
         $("#installmentAmount").text(
-            "₹" + installmentAmount.toFixed(2)
+            "₹" + Math.trunc(installmentAmount)
         );
         $("#billingFrequency").text(
             "Every " + period
+        );
+         $("#billingInterval").text(
+             interval
         );
     }
 
@@ -67,7 +72,7 @@ $(document).ready(function () {
         }
     });
 
-    $("#installments").on("change", function () {
+    $("#installments ,#period, #interval").on("change", function () {
         updateInstallmentAmount();
     });
 
@@ -103,6 +108,19 @@ $(document).ready(function () {
         var formData = $(this).serialize();
 
 
+
+
+
+
+//  if payment is in Lumpsum 
+
+
+
+
+
+
+
+
         if (paymentType === "lumpsum") {
             button.text("Creating Order...");
             $.ajax({
@@ -112,6 +130,8 @@ $(document).ready(function () {
                 dataType: "json",
                 success: function (response) {
                     console.log(response);
+
+
                     if (response.success && response.order_id) {
                         var options = {
                             key: response.key_id,
@@ -135,13 +155,13 @@ $(document).ready(function () {
                                     url: "../verify-payments.php",
                                     dataType: "json",
                                     data: {
-                                        key: response.key_id,
+                                       
                                         amount: response.amount,
                                         currency: response.currency,
                                         name: response.notes.customer_name,
                                         email: response.notes.customer_email,
                                         phone: response.notes.customer_phone,
-                                        payment_type: response.notes.payment_type,
+                                        payment_type: paymentType,
                                         razorpay_payment_id: paymentResponse.razorpay_payment_id,
                                         razorpay_order_id: paymentResponse.razorpay_order_id,
                                         razorpay_signature: paymentResponse.razorpay_signature
@@ -219,6 +239,25 @@ $(document).ready(function () {
             });
         }
 
+
+
+
+
+
+
+
+
+// if payment is in installment 
+
+
+
+
+
+
+
+
+
+
         else if (paymentType === "installment") {
             button.text("Creating Subscription Plan...");
             $.ajax({
@@ -227,16 +266,130 @@ $(document).ready(function () {
                 data: formData,
                 dataType: "json",
                 success: function (response) {
-                    console.log("Plan response:", response);
+                    // console.log("Plan response:", response);
                     if (response.success && response.plan_id) {
-                        message.css("color", "green")
-                            .text(
-                                "Plan created successfully. Plan ID: " +
-                                response.plan_id
-                            );
-                        // Next step:
-                        // Send plan_id to create-subscription.php
-                        // Open Razorpay Checkout using subscription_id.
+                        message.css("color", "green").text("Plan created successfully. Plan ID: " +response.plan_id);
+                            // subscription call 
+                        $.ajax({
+                            url : "../subscription.php",
+                            type : 'POST',
+                            dataType: "json",
+                            data: {
+                                plan_id : response.plan_id,
+                                installment_amount: response.installmentAmount,
+                                interval : response.interval,
+                                message : response.message,
+                                period: response.period,
+                                total_installments: response.total_installments,
+                                customer_name: response.customer_name,
+                                customer_email: response.customer_email,
+                                customer_phone: response.customer_phone
+                            },
+
+
+
+                            success: function(response){
+                                console.log(response)
+                                    console.log("success from subsciption.php"+response)
+                                    
+                                if (response.status === "success") {
+                                    // Razorpay Subscription Checkout
+                                        var options = {
+                                        key: response.razorpay_id,
+                                        subscription_id: response.subscription_id,
+                                        name: "Razorpay Payment subscription",
+                                        description: "Subscription Payment",
+                                        prefill: {
+                                            name: $("#customer_name").val(),
+                                            email: $("#customer_email").val(),
+                                            contact: $("#customer_phone").val()
+                                        },
+
+                                        handler: function (paymentResponse) {
+                                            console.log(paymentResponse);
+
+                                            $.ajax({
+                                                type: "POST",
+                                                url: "../verify-payments.php",
+                                                dataType: "json",
+                                                data: {
+                                                    plan_id : response.plan_id,
+                                                    amount: response.installmentAmount,
+                                                    currency: response.currency,
+                                                    payment_type: "installment",
+                                                    razorpay_payment_id: paymentResponse.razorpay_payment_id,
+                                                    razorpay_subscription_id: paymentResponse.razorpay_subscription_id,
+                                                    razorpay_signature: paymentResponse.razorpay_signature,
+                                                    razorpay_response: response.razorpay_response
+                                                },
+
+                                                success: function (verificationResponse) {
+                                                    if (verificationResponse.success) {
+                                                        message.css("color", "green")
+                                                            .text(
+                                                                verificationResponse.message +" Payment ID: " +paymentResponse.razorpay_payment_id
+                                                            );
+                                                    } else {
+
+                                                        message.css("color", "#b91c1c")
+                                                            .text(verificationResponse.message);
+                                                    }
+                                                },
+                                                error: function (xhr) {
+                                                    var errorMessage = "Payment verification failed.";
+                                                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                                                        errorMessage = xhr.responseJSON.message;
+                                                    }
+                                                    message.css("color", "red")
+                                                        .text(errorMessage);
+                                                },
+                                                complete: function () {
+                                                    button.prop("disabled", false)
+                                                        .text("Pay Now");
+                                                }
+                                            });
+
+
+
+                                            message.css("color", "red")
+                                                .text("Subscription authorization submitted successfully!" );
+                                        },
+                                            modal: {
+                                                ondismiss: function () {
+                                                    message.css("color", "red")
+                                                        .text("Checkout closed. No payment received.");
+                                                    button.prop("disabled", false)
+                                                        .text("Pay Now");
+
+                                                }
+                                            }
+                                    };
+                                    var razorpay = new Razorpay(options);
+                                    razorpay.open();
+                                } else {
+                                    $("#message").html(response.message);
+                                    $("#payNow")
+                                        .prop("disabled", false)
+                                        .text("Pay Now");
+                                }
+
+
+
+                            },
+                            error: function (xhr) {
+                                var errorMessage = "subscription.php failed";
+                                if (xhr.responseJSON && xhr.responseJSON.message) {
+                                    errorMessage = xhr.responseJSON.message;
+                                }
+                                message.css("color", "red")
+                                    .text(errorMessage);
+                            },
+                            complete: function () {
+                                button.prop("disabled", false)
+                                    .text("Pay Now");
+                            }
+                        })
+
 
                     } else {
                         message.css("color", "red")
