@@ -46,12 +46,22 @@ $(document).ready(function () {
         $("#installmentAmount").text(
             "₹" + Math.trunc(installmentAmount)
         );
-        $("#billingFrequency").text(
-            "Every " + period
-        );
-         $("#billingInterval").text(
-             interval
-        );
+
+        if(period === 'daily'){
+            $("#billingFrequency").text(" After Every " +interval + " Day");
+        } else if(period === 'weekly') 
+        {
+            $("#billingFrequency").text(" After Every " + interval + " Week");
+        }  else if(period === 'quarterly')
+        {
+            $("#billingFrequency").text(" After Every " + interval + " Quarter");
+        } else if(period === 'yearly')
+        {
+            $("#billingFrequency").text(" After Every " + interval + " year");
+        } else {
+            $("#billingFrequency").text(" After Every " + interval + " Month");
+        }
+         
     }
 
     $("#payment_type").on("change", function () {
@@ -129,8 +139,6 @@ $(document).ready(function () {
                 data: formData,
                 dataType: "json",
                 success: function (response) {
-                    console.log(response);
-
 
                     if (response.success && response.order_id) {
                         var options = {
@@ -187,7 +195,7 @@ $(document).ready(function () {
                                             errorMessage = xhr.responseJSON.message;
                                         }
                                         message.css("color", "red")
-                                            .text(errorMessage);
+                                            .text(errorMessage,xhr);
                                     },
                                     complete: function () {
                                         button.prop("disabled", false)
@@ -289,9 +297,7 @@ $(document).ready(function () {
 
 
                             success: function(response){
-                                console.log(response)
-                                    console.log("success from subsciption.php"+response)
-                                    
+                               
                                 if (response.status === "success") {
                                     // Razorpay Subscription Checkout
                                         var options = {
@@ -306,8 +312,7 @@ $(document).ready(function () {
                                         },
 
                                         handler: function (paymentResponse) {
-                                            console.log(paymentResponse);
-
+              
                                             $.ajax({
                                                 type: "POST",
                                                 url: "../verify-payments.php",
@@ -351,8 +356,7 @@ $(document).ready(function () {
 
 
 
-                                            message.css("color", "red")
-                                                .text("Subscription authorization submitted successfully!" );
+                                           
                                         },
                                             modal: {
                                                 ondismiss: function () {

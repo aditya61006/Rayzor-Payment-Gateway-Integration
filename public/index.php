@@ -79,13 +79,10 @@
             <span id="installmentAmount">₹0.00</span>
         </p>
         <p>
-            Billing Frequency:
+            Billing Frequency: 
             <span id="billingFrequency">Every 1 month</span>
         </p>
-        <p>
-            Billing Interval:
-            <span id="billingInterval">0</span>
-        </p>
+        
 
     </div>
 

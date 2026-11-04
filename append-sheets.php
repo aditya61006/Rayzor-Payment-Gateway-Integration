@@ -21,13 +21,19 @@ function appendPaymentDetails($data)
             $data['customer_name'],
             $data['customer_email'],
             $data['customer_phone'],
-            date('Y-m-d H:i:s'),
+            $data['start_date'],
+            $data['due_date'],
             $data['payment_type'],
-            $data['amount'],
-            // $data['amount_paid'],
+            $data['total_amount'],
+            $data['emi_amount'],
+            $data['total_installments'],
+            $data['paid_installments'],
+            $data['remaining_installments'],
             $data['order_id'],
             $data['payment_id'],
-            'success'
+            $data['subscription_id'],
+            $data['payment_status'], // dekh liyo 
+            $data['subscription_status'] // dekh liy
             ]
         
     ];

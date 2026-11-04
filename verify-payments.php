@@ -20,19 +20,19 @@ if ($_POST['payment_type'] === 'lumpsum') {
     $signature = $_POST["razorpay_signature"] ?? "";
     $amount = isset($_POST["amount"]) ? (int) $_POST["amount"] : 0;
     $totalAmount = (float) ($amount / 100);
-
+        
     
     $payload = $order_id . '|' . $payment_id;
 
     $exp_sign = hash_hmac('sha256', $payload, RAZORPAY_KEY_SECRET);  // generating signature 
 
     if (hash_equals($exp_sign, $signature)) {
-        echo json_encode([
+        $success_res = [
             "success" => true,
             "message" => 'Payment signature verified successfully.',
             "payment_id" => $payment_id,
             "order_id" => $order_id
-        ]);
+        ];
 
 
 
@@ -48,13 +48,20 @@ if ($_POST['payment_type'] === 'lumpsum') {
                 'customer_name' => $name,
                 'customer_email' => $email,
                 'customer_phone' => $phone,
+                'start_date'=> date('Y-m-d H:i:s'),
+                'due_date' => 'N/A',
                 'payment_type' => $payment_type,
-                'amount' => $totalAmount,
+                'total_amount' => $totalAmount,
+                'emi_amount' => 'N/A',
+                'total_installments' => 'N/A',
+                'paid_installments' => 'N/A',
+                'remaining_installments' => 'N/A',
                 'order_id' => $order_id,
-                'payment_id' => $payment_id
+                'payment_id' => $payment_id,
+                'subscription_id' => 'N/A',
+                'payment_status' => 'Success',
+                'subscription_status'=> 'N/A'
             ]);
-
-
 
 
         } catch (Throwable $e) {
@@ -89,18 +96,18 @@ if ($_POST['payment_type'] === 'lumpsum') {
             echo ' Transaction Email send unsuccessful : ' . $e->getMessage();
         }
 
+        echo json_encode( $success_res);
+
         exit;
 
     } 
 
 echo json_encode([
     "success" => false,
-    "message" => "'Payment signature verified failed."
+    "message" => "'Payment signature authorized."
 ]);
 
 }
-
-
 elseif($_POST['payment_type']==='installment'){
 
     $payment_id = $_POST['razorpay_payment_id'] ?? '';
@@ -114,12 +121,12 @@ elseif($_POST['payment_type']==='installment'){
         $exp_sign = hash_hmac('sha256', $payload, RAZORPAY_KEY_SECRET);  // generating signature 
 
         if (hash_equals($exp_sign, $signature)) {
-            echo json_encode([
+            $s_response = [
                 "success" => true,
                 "message" => 'Payment signature verified successfully.',
                 "payment_id" => $payment_id,
                 "subscription" => $subscription_id
-            ]);
+            ];
 
 
             try {
@@ -129,7 +136,7 @@ elseif($_POST['payment_type']==='installment'){
             $keySecret = RAZORPAY_KEY_SECRET;
 
 
-            $url = RAZORPAY_API_URL . $subscription_id;
+            $url = RAZORPAY_API_URL . '/subscriptions/'.$subscription_id;
 
             $ch = curl_init();
 
@@ -146,21 +153,29 @@ elseif($_POST['payment_type']==='installment'){
             }
             $subscriptionData = json_decode($response, true);
 
-            print_r($subscriptionData);
-            
-
-
-
+            // print_r($subscriptionData);
+ 
 
             appendPaymentDetails([
                 'customer_name' => $subscriptionData['notes']['customer_name'],
                 'customer_email' => $subscriptionData['notes']['customer_email'],
                 'customer_phone' => $subscriptionData['notes']['customer_phone'],
-                'payment_type' => $_POST['payment_type'],
-                'amount' => $totalAmount,
-                'order_id' => $subscriptionData['id'],
-                'payment_id' => $payment_id
+                'start_date'=> date('Y-m-d H:i:s',$subscriptionData['start_at']),
+                'due_date'=> date('Y-m-d H:i:s',$subscriptionData['charge_at']),
+                'payment_type' =>$_POST['payment_type'],
+                'total_amount' => $totalAmount * $subscriptionData['total_count'] ,
+                'emi_amount' => $totalAmount,
+                'total_installments' => $subscriptionData['total_count'],
+                'paid_installments' => $subscriptionData['paid_count'],
+                'remaining_installments' => $subscriptionData['remaining_count'],
+                'order_id' => 'N/A',
+                'payment_id' => $payment_id,
+                'subscription_id' => $subscriptionData['id'],
+                'payment_status' => 'Success',
+                'subscription_status' => $subscriptionData['status']
             ]);
+
+
 
 
             sendEmail([
@@ -180,17 +195,25 @@ elseif($_POST['payment_type']==='installment'){
             echo ' Transaction Email send unsuccessful : ' . $e->getMessage();
         }
 
-        echo json_encode([
-            "success" => true,
-            "message" => 'Payment signature verified successfully.',
-            "payment_id" => $payment_id,
-            "order_id" => $subscription_id
-        ]);
+        echo json_encode($s_response);
 
-
-
-    }
     exit;
+    }
+
+    echo json_encode([
+        "success" => false,
+        "message" => "Payment signature unauthorized."
+    ]);
 
 }
+else{
+    echo json_encode(
+        [
+            'success'=> false,
+            'message'=> 'Unrecognized payment type'
+        ]
+    );
+}
+
+
 
