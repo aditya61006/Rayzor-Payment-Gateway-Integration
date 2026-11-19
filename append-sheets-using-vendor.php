@@ -33,7 +33,7 @@ function appendPaymentDetails($data)
             $data['payment_id'],
             $data['subscription_id'],
             $data['payment_status'], // dekh liyo 
-            $data['subscription_status'] // dekh liy
+            $data['subscription_status'] // dekh liyo
             ]
         
     ];

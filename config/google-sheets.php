@@ -12,5 +12,5 @@ define(
 );
 
 define('GOOGLE_SHEETS_RANGE','Sheet1!A:J');
-
+//  google password : qfbarpgrebdkmprw
 ?>

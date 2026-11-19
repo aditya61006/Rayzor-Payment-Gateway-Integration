@@ -55,6 +55,10 @@
         <option value="1">Every 1 period</option>
         <option value="2">Every 2 periods</option>
         <option value="3">Every 3 periods</option>
+        <option value="4">Every 4 periods</option>
+        <option value="5">Every 5 periods</option>
+        <option value="6">Every 6 periods</option>
+        <option value="7">Every 7 periods</option>
     </select>
 
     <!-- Number of Installments -->
